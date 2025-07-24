@@ -1,36 +1,30 @@
-# Imagen base oficial de PHP con CLI y Apache (puedes usar php-fpm si prefieres)
 FROM php:8.2-apache
 
-# Establece el directorio de trabajo dentro del contenedor
-WORKDIR /var/www/html
-
-# Instalar dependencias del sistema para PostgreSQL y Laravel
+# Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
     libpq-dev \
-    git \
-    unzip \
-    curl \
-    libzip-dev \
-    zip \
-    && docker-php-ext-install pdo_pgsql zip
+    && docker-php-ext-install pdo_pgsql
 
-# Habilitar mod_rewrite para Apache (Laravel lo usa)
+# Habilitar mod_rewrite para Apache
 RUN a2enmod rewrite
 
-# Instalar Composer globalmente
+# Copiar el código de tu aplicación
+COPY . /var/www/html/
+
+# Establecer el directorio de trabajo
+WORKDIR /var/www/html
+
+# Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copiar el código de tu proyecto al contenedor
-COPY . .
-
-# Instalar dependencias de PHP usando Composer
+# Instalar dependencias de PHP
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Cambiar permisos para Apache (ajusta según necesites)
+# Ajustar permisos
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Exponer puerto 80 para Apache
+# Exponer el puerto 80
 EXPOSE 80
 
-# Ejecutar migraciones y levantar el servidor Apache en modo foreground
-CMD php artisan migrate --force && php artisan db:seed --force && apache2-foreground
+# Comando para iniciar Apache en primer plano
+CMD ["apache2-foreground"]
