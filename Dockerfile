@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Crear carpeta de la app
+# Crear carpeta de app
 WORKDIR /var/www
 
 # Copiar archivos del proyecto
@@ -32,8 +32,8 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 # Asignar permisos
 RUN chown -R www-data:www-data /var/www
 
-# Exponer puerto 8000
+# Exponer puerto
 EXPOSE 8000
 
-# Ejecutar migraciones y seeders, luego levantar el servidor
+# Comando: ejecutar migraciones + iniciar el servidor Laravel
 CMD php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8000
