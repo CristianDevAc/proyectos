@@ -58,12 +58,12 @@ Route::prefix('laboratorios')->middleware('can:ver laboratorio')->group(function
 
 
 Route::prefix('muestras')->middleware('can:ver laboratorio')->group(function () {
-    Route::get('/', [MuestraLaboratorioController::class, 'index'])->name('muestras.index');
-    Route::get('/create', [MuestraLaboratorioController::class, 'create'])->name('muestras.create');
-    Route::post('/', [MuestraLaboratorioController::class, 'store'])->name('muestras.store');
-    Route::get('/{muestra}/edit', [MuestraLaboratorioController::class, 'edit'])->name('muestras.edit');
-    Route::put('/{muestra}', [MuestraLaboratorioController::class, 'update'])->name('muestras.update');
-    Route::get('/{muestra}', [MuestraLaboratorioController::class, 'show'])->name('muestras.show');
+    Route::get('/', [MuestraLaboratorioController::class, 'index'])->middleware('can:ver laboratorio')->name('muestras.index');
+    Route::get('/create', [MuestraLaboratorioController::class, 'create'])->middleware('can:crear laboratorio')->name('muestras.create');
+    Route::post('/', [MuestraLaboratorioController::class, 'store'])->middleware('can:crear laboratorio')->name('muestras.store');
+    Route::get('/{muestra}/edit', [MuestraLaboratorioController::class, 'edit'])->middleware('can:editar laboratorio')->name('muestras.edit');
+    Route::put('/{muestra}', [MuestraLaboratorioController::class, 'update'])->middleware('can:editar laboratorio')->name('muestras.update');
+    Route::get('/{muestra}', [MuestraLaboratorioController::class, 'show'])->middleware('can:ver laboratorio')->name('muestras.show');
 });
 
 
