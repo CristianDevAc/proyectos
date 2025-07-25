@@ -24,11 +24,13 @@ class MunicipioSeeder extends Seeder
         ];
 
         foreach ($municipios as $nombre) {
-           DB::table('municipios')->updateOrInsert([
-             'nombre' => $nombre,
-             'created_at' => now(),
-             'updated_at' => now(),
-           ]);
+           DB::table('municipios')->updateOrInsert(
+                ['nombre' => $nombre],
+                [
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
         }
     }
 }
