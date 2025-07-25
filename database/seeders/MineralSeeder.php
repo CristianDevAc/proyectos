@@ -15,7 +15,7 @@ class MineralSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('minerales')->insert([
+        DB::table('minerales')->updateOrInsert([
             [
                 'nombre' => 'PLOMO',
                 'simbolo' => 'PB',

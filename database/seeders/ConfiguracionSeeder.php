@@ -15,11 +15,13 @@ class ConfiguracionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('configuraciones')->insert([
-            'nombre_empresa' => 'Empresa de Minerales',
-            'cotizacion_dolar' => 6.96,  // Puedes poner el valor inicial que quieras
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        DB::table('configuraciones')->updateOrInsert(
+            ['nombre_empresa' => 'Empresa de Minerales'], // condición para buscar
+            [
+                'cotizacion_dolar' => 6.96,
+                'updated_at' => now(),
+                'created_at' => now(),
+            ]
+        );
     }
 }

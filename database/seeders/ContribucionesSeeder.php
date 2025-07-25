@@ -43,7 +43,7 @@ class ContribucionesSeeder extends Seeder
         ];
 
         foreach ($contribuciones as $item) {
-            Contribucion::create($item);
+            Contribucion::updateOrCreate($item);
         }
     }
 }

@@ -17,7 +17,7 @@ class CentroAcopioSeeder extends Seeder
     public function run(): void
     {
         // Crear el centro de acopio
-        $centro = CentroAcopio::create([
+        $centro = CentroAcopio::updateOrCreate([
             'nombre' => 'CENTRO DE ACOPIO',
             'codigo' => 'CA1',
             'descripcion' => 'CENTRO DE ACOPIO PRINCIPAL',
@@ -25,7 +25,7 @@ class CentroAcopioSeeder extends Seeder
 
         // Crear 5 plataformas asociadas
         for ($i = 1; $i <= 5; $i++) {
-            Plataforma::create([
+            Plataforma::updateOrCreate([
                 'nombre' => 'PLATAFORMA ' . $i,
                 'codigo' => 'P' . $i,
                 'descripcion' => '',
