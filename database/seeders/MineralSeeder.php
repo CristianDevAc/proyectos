@@ -15,39 +15,44 @@ class MineralSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('minerales')->updateOrInsert([
+        $minerales = [
             [
                 'nombre' => 'PLOMO',
                 'simbolo' => 'PB',
                 'alicuota' => 3.00,
                 'conversion' => 2.20462,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'nombre' => 'ZING',
                 'simbolo' => 'ZN',
                 'alicuota' => 3.00,
                 'conversion' => 2.20462,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'nombre' => 'PLATA',
                 'simbolo' => 'AG',
-                'conversion' =>32.1507,
+                'conversion' => 32.1507,
                 'alicuota' => 3.60,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'nombre' => 'COBRE',
                 'simbolo' => 'CU',
                 'alicuota' => 3.00,
                 'conversion' => 2.20462,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
-        ]);
+        ];
+
+        foreach ($minerales as $mineral) {
+            DB::table('minerales')->updateOrInsert(
+                ['simbolo' => $mineral['simbolo']], // condición única para encontrar el registro
+                array_merge(
+                    $mineral,
+                    [
+                        'updated_at' => now(),
+                        'created_at' => now(),
+                    ]
+                )
+            );
+        }
     }
 }
