@@ -94,11 +94,7 @@ class MuestraLaboratorioController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            report($e);
-
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Ocurrió un error al registrar la muestra.');
+            dd('ERROR DETECTADO', $e->getMessage(), $e);
         }
     }
     public function show(MuestraLaboratorio $muestra)
