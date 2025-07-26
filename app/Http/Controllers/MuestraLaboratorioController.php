@@ -44,7 +44,7 @@ class MuestraLaboratorioController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+       
         $request->validate([
             'carga_id' => 'required|exists:cargas,id',
             'laboratorio_id' => 'required|exists:laboratorios,id',
