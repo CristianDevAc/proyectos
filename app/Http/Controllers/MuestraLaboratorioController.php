@@ -55,7 +55,7 @@ class MuestraLaboratorioController extends Controller
             'minerales.*.mineral_id' => 'required|exists:minerales,id',
             'minerales.*.ley' => 'required|numeric|min:0|max:100',
             'minerales.*.humedad' => 'required|numeric|min:0|max:100',
-            'imagen_certificado' => 'nullable|image|max:10240',
+            'imagen_certificado' => 'nullable|image|max:5120',
         ]);
 
         DB::beginTransaction();
